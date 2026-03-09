@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Garage - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="login-body">
+
+<div class="login-container">
+    <h1>🚗 Smart Garage</h1>
+    <h3>Login</h3>
+
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button type="button" id="loginBtn">Login</button>
+
+    <p style="margin-top:15px;">
+        New user?
+        <button type="button" id="goRegister">Register here</button>
+    </p>
+</div>
+
+<script>
+
+window.onload = function(){
+
+document.getElementById("loginBtn").addEventListener("click", function() {
+
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value;
+
+    if (!user || !pass) {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // Admin login
+    if (user === "admin" && pass === "1234") {
+        localStorage.setItem("loggedInUser", user);
+        window.location.href = "index.html";
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const found = users.find(u =>
+        u.username.toLowerCase() === user.toLowerCase() &&
+        u.password === pass
+    );
+
+    if (found) {
+        localStorage.setItem("loggedInUser", user);
+        window.location.href = "index.html";
+    } else {
+        alert("Invalid username or password!");
+    }
+
+});
+
+document.getElementById("goRegister").addEventListener("click", function() {
+    window.location.href = "register.html";
+});
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Garage - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav>
+    <h2>🚗 Smart Garage</h2>
+    <button onclick="logout()">Logout</button>
+</nav>
+
+<div class="container">
+
+    <h1 class="typing-text"></h1>
+    <p id="welcomeUser"></p>
+
+    <div class="card">
+        <h2>Register Vehicle</h2>
+
+        <input type="text" id="ownerName" placeholder="Owner Name">
+        <input type="text" id="vehicleName" placeholder="Vehicle Model">
+
+        <select id="serviceType">
+            <option value="">Select Service</option>
+            <option value="Oil Change">Oil Change</option>
+            <option value="Tire Rotation">Tire Rotation</option>
+            <option value="Brake Check">Brake Check</option>
+            <option value="Battery Check">Battery Check</option>
+            <option value="Engine Service">Engine Service</option>
+            <option value="Full Service">Full Service</option>
+        </select>
+
+        <input type="date" id="serviceDate">
+
+        <button onclick="addVehicle()">Add Vehicle</button>
+    </div>
+
+    <div class="card">
+        <h2>Garage Records</h2>
+
+        <div class="dsa-buttons">
+            <button onclick="sortVehiclesByOwner()">Sort by Owner</button>
+            <button onclick="sortVehiclesByVehicle()">Sort by Vehicle</button>
+            <button onclick="searchVehicleByOwner()">Search by Owner</button>
+        </div>
+
+        <div id="vehicleContainer"></div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+const user = localStorage.getItem("loggedInUser");
+
+if (!user) {
+    window.location.href = "login.html";
+} 
+else {
+    document.getElementById("welcomeUser").innerText =
+        "Welcome, " + user + " (Garage Admin)";
+}
+
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
